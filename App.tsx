@@ -1,42 +1,29 @@
-import { Text, View, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
+import { NativeBaseProvider } from 'native-base';
 import {
     useFonts,
     Roboto_400Regular,
     Roboto_700Bold
 } from '@expo-google-fonts/roboto';
 
+import { SignIn } from '@screens/SignIn';
+import { SignUp } from '@screens/SignUp';
+import { Loading } from '@components/Loading';
+
+import { THEME } from 'src/theme';
+
 export default function App() {
 
     const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
     return (
-        <View
-            style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#202024'
-            }}
-        >
+        <NativeBaseProvider theme={THEME}>
             <StatusBar
                 barStyle='light-content'
                 translucent
                 backgroundColor='transparent'
             />
-
-            {
-                fontsLoaded
-                    ? <Text
-                        style={{ 
-                            color: '#FFF',
-                            fontSize: 18,
-                            fontWeight: '700'
-                        }}
-                    >
-                        IGNITE GYM
-                    </Text>
-                    : <View />
-            }
-        </View>
+            {fontsLoaded ? <SignUp /> : <Loading />}
+        </NativeBaseProvider>
     );
 }
